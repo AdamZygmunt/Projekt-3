@@ -7,12 +7,12 @@ using namespace std;
 
 int main( )
 {
-  int n, m, i, j, v1, v2;
+  int n, m, i, j, w1, w2;
   char ** A;
 
 
   cout << "podaj liczbe wierzcholkow, a nastepnie liczbe krawedzi grafu " << endl;
-  cin >> n >> m;         // Czytamy liczbê wierzcho³ków i krawêdzi
+  cin >> n >> m;         // Czytamy liczbê wierzcholków i krawedzi
 
   A = new char * [ n ];  // Tworzymy tablicê wskaŸników
 
@@ -29,13 +29,13 @@ int main( )
   for( i = 0; i < m; i++ )
   {
     cout << "podaj poczatkowy i koncowy wierzcholek krawedzi " << i+1 << endl;
-    cin >> v1 >> v2;    // Wierzcho³ek startowy i koñcowy krawêdzi
-    A [ v1 ][ v2 ] = 1; // KrawêdŸ v1->v2 obecna
+    cin >> w1 >> w2;    // Wierzcholek startowy i koncowy krawêdzi
+    A [ w1 ][ w2 ] = 1; // Krawedz w1->w2 obecna
   }
 
   cout << endl;
 
-  // Wypisujemy zawartoœæ macierzy s¹siedztwa
+  // Wypisujemy zawartosc macierzy sasiedztwa
 
   cout << "   ";
   for( i = 0; i < n; i++ ) cout << setw ( 3 ) << i;
