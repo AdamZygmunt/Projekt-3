@@ -118,5 +118,43 @@ licznik =0;
         licznik = 0;
     }
 
+    cout << "\n\n3) stopnie wychodzace z wierzcholkow" << endl << endl;
+
+    licznik =0;
+
+    for(i=0;i<n;i++)
+    {
+         for(j=0;j<n;j++)
+        {
+            if(A[i][j] == 1)
+            {
+                licznik++;
+            }
+
+        }
+        cout << "wierzcholek w" << i+1 << " ma " << licznik << " stopni wychodzacych"<< endl;
+            licznik = 0;
+
+    }
+
+    cout << "\n\n4) stopnie wchodzace wierzcholkow" << endl << endl;
+
+    for(j=0;j<n;j++)
+    {
+         for(i=0;i<n;i++)
+        {
+            if(A[i][j] == 1)
+            {
+                licznik++;
+            }
+        }
+
+        cout << "wierzcholek w" << j+1 << " ma " << licznik << " stopni wchodzacych" << endl;
+        licznik = 0;
+    }
+
+
+
+
   return 0;
 }
