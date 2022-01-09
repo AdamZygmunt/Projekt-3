@@ -2,37 +2,92 @@
 #include <iomanip>
 
 using namespace std;
-int  licznik = 0;
-void sasiedzi()
+
+void sasiedzi(char **A, int n, int m)
 {
-    int n, m, i, j, w1, w2;
-    char ** A;
+    int  i, j;
+
+
+    cout << "1) sasiedzi wierzcholkow :" << endl;
+
+ for(i=0;i<n;i++)
+    {
+         for(j=0;j<n;j++)
+        {
+            if(A[i][j] == 1)
+            {
+              //  licznik++;
+                cout << "sasiadem wierzcholka w" << i+1 << " jest wierzcholek w" << j+1 << endl;
+            }
+        }
+    }
+}
+
+void sasiedzikazdego (char **A, int n, int m)
+{
+    cout << "\n\n2) sasiedzi kazdego wierzcholka" << endl << "sasiadem kazdego wierzcholka sa wierzcholki :" << endl;
+
+    int i, j, licznik = 0;
+
+    for(j=0;j<n;j++)
+    {
+         for(i=0;i<n;i++)
+        {
+            if(A[i][j] == 1)
+            {
+                licznik++;
+            }
+        }
+        if (licznik == n-1) cout << "w" << j+1  << " ";
+ //       else cout << "nie ma takiego wierzcholka";
+ licznik =0;
+    }
+
+}
+
+
+void stwychodzace (char **A, int n, int m)
+{
+     cout << "\n\n3) stopnie wychodzace z wierzcholkow" << endl << endl;
+
+    int i, j, licznik = 0;
 
     for(i=0;i<n;i++)
     {
          for(j=0;j<n;j++)
         {
-            if(A[w1][w2] == 1)
+            if(A[i][j] == 1)
             {
                 licznik++;
-                cout << "sasiadem wierzcholka w" << i << " jest wierzcholek w" << j << endl;
+            }
+
+        }
+        cout << "wierzcholek w" << i+1 << " ma " << licznik << " stopni wychodzacych"<< endl;
+            licznik = 0;
+
+    }
+}
+
+void stwchodzace (char **A, int n, int m)
+{
+    cout << "\n\n4) stopnie wchodzace wierzcholkow" << endl << endl;
+
+    int i, j, licznik = 0;
+
+    for(j=0;j<n;j++)
+    {
+         for(i=0;i<n;i++)
+        {
+            if(A[i][j] == 1)
+            {
+                licznik++;
             }
         }
 
+        cout << "wierzcholek w" << j+1 << " ma " << licznik << " stopni wchodzacych" << endl;
+        licznik = 0;
     }
-
-
-
-
-  //  return licznik;
 }
-
-
-
-
-
-
-
 
 
 
@@ -86,7 +141,15 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
 
   cout << endl;
 
-  cout << "1) sasiedzi wierzcholkow :" << endl;
+  sasiedzi(A, n, m);
+
+  sasiedzikazdego (A, n, m);
+
+  stwchodzace(A, n, m);
+
+  stwychodzace(A, n, m);
+
+/*  cout << "1) sasiedzi wierzcholkow :" << endl;
 sasiedzi();
  for(i=0;i<n;i++)
     {
@@ -153,7 +216,7 @@ licznik =0;
         licznik = 0;
     }
 
-
+*/
 
 
   return 0;
