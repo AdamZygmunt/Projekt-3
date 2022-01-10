@@ -89,7 +89,49 @@ void stwchodzace (char **A, int n, int m)
     }
 }
 
+void wizolowane (char **A, int n, int m)
+{
+    //wierzcho³ek stopnia 0, to znaczy wierzcho³ek niebêd¹cy koñcem ¿adnej krawêdzi grafu
 
+    cout << "\n\n5) Wierzcholki izolowane :" << endl;
+    int i, j, k, licznik = 0, tab[n];
+
+
+
+    for(i=0;i<n;i++)
+    {
+         for(j=0;j<n;j++)
+        {
+            if(A[i][j] == 1)
+            {
+                licznik++;
+            }
+
+        }
+        if (licznik == 0) tab[i] = 1; else tab[i] = 0;
+            licznik = 0;
+// cout << tab[i] << " ";
+
+    }
+
+for(j=0;j<n;j++)
+    {
+         for(i=0;i<n;i++)
+        {
+            if(A[i][j] == 1)
+            {
+                licznik++;
+            }
+        }
+
+        if (licznik == 0 && tab [j] == 1)
+        {
+                cout << "wierzcholek w" << j+1 << " jest wierzcholkiem izolowanym " << endl;
+        }
+            licznik = 0;
+
+    }
+}
 
 
 int main( )
@@ -145,78 +187,14 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
 
   sasiedzikazdego (A, n, m);
 
-  stwchodzace(A, n, m);
-
   stwychodzace(A, n, m);
 
-/*  cout << "1) sasiedzi wierzcholkow :" << endl;
-sasiedzi();
- for(i=0;i<n;i++)
-    {
-         for(j=0;j<n;j++)
-        {
-            if(A[i][j] == 1)
-            {
-              //  licznik++;
-                cout << "sasiadem wierzcholka w" << i+1 << " jest wierzcholek w" << j+1 << endl;
-            }
-        }
+  stwchodzace(A, n, m);
 
-    }
+  wizolowane(A, n, m);
 
-licznik =0;
-    cout << "\n\n2) sasiedzi kazdego wierzcholka" << endl << "sasiadem kazdego wierzcholka sa wierzcholki :" << endl;
 
-    for(j=0;j<n;j++)
-    {
-         for(i=0;i<n;i++)
-        {
-            if(A[i][j] == 1)
-            {
-                licznik++;
-            }
-        }
-        if (licznik == n-1) cout << "w" << j+1  << " ";
- //       else cout << "nie ma takiego wierzcholka";
-        licznik = 0;
-    }
 
-    cout << "\n\n3) stopnie wychodzace z wierzcholkow" << endl << endl;
-
-    licznik =0;
-
-    for(i=0;i<n;i++)
-    {
-         for(j=0;j<n;j++)
-        {
-            if(A[i][j] == 1)
-            {
-                licznik++;
-            }
-
-        }
-        cout << "wierzcholek w" << i+1 << " ma " << licznik << " stopni wychodzacych"<< endl;
-            licznik = 0;
-
-    }
-
-    cout << "\n\n4) stopnie wchodzace wierzcholkow" << endl << endl;
-
-    for(j=0;j<n;j++)
-    {
-         for(i=0;i<n;i++)
-        {
-            if(A[i][j] == 1)
-            {
-                licznik++;
-            }
-        }
-
-        cout << "wierzcholek w" << j+1 << " ma " << licznik << " stopni wchodzacych" << endl;
-        licznik = 0;
-    }
-
-*/
 
 
   return 0;
