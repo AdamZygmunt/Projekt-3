@@ -3,7 +3,7 @@
 
 using namespace std;
 
-void sasiedzi(char **A, int n, int m)
+void sasiedzi(char **A, int n)
 {
     int  i, j;
 
@@ -44,7 +44,6 @@ void sasiedzikazdego (char **A, int n, int m)
     }
 
 }
-
 
 void stwychodzace (char **A, int n, int m)
 {
@@ -133,7 +132,15 @@ for(j=0;j<n;j++)
     }
 }
 
-
+void petle (char **A, int n)
+{
+    cout << "\n\n6) Wszystkie petle:" << endl;
+    int i;
+    for(i=0; i<n; i++)
+    {
+        if (A[i][i] == 1) cout << "petla wierzcholka w" << i+1 << endl;
+    }
+}
 int main( )
 {
   int n, m, i, j, w1, w2;
@@ -176,14 +183,10 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
     cout << endl;
   }
 
-  // Usuwamy macierz
-
-  //for( i = 0; i < n; i++ ) delete [ ] A [ i ];
-  //delete [ ] A;
 
   cout << endl;
 
-  sasiedzi(A, n, m);
+  sasiedzi(A, n);
 
   sasiedzikazdego (A, n, m);
 
@@ -193,8 +196,7 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
 
   wizolowane(A, n, m);
 
-
-
+  petle(A,n);
 
 
   return 0;
