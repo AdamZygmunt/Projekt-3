@@ -25,26 +25,25 @@ void sasiedzi(char **A, int n)
 
 
     cout << "1) sasiedzi wierzcholkow :" << endl;
-
+// petla dla kazdego wierzcholka poczatkowego szuka wierzcholka koncowego ktory jest jego sasiadem
  for(i=0;i<n;i++)
     {
          for(j=0;j<n;j++)
         {
             if(A[i][j] == 1)
             {
-              //  licznik++;
                 cout << "sasiadem wierzcholka w" << i+1 << " jest wierzcholek w" << j+1 << endl;
-            }
+            }                                  // +1 poniewaÅ¼ indeksy w tablicy zaczynaja sie od 0
         }
     }
 }
 
-void sasiedzikazdego (char **A, int n, int m)
+void sasiedzikazdego (char **A, int n)
 {
     cout << "\n\n2) sasiedzi kazdego wierzcholka" << endl << "sasiadem kazdego wierzcholka sa wierzcholki :" << endl;
 
     int i, j, licznik = 0;
-
+// petla dla kazdego wierzcholka sprawdza czy jest on stopniem wyjsciowym kazdego innego wierzcholka
     for(j=0;j<n;j++)
     {
          for(i=0;i<n;i++)
@@ -54,19 +53,19 @@ void sasiedzikazdego (char **A, int n, int m)
                 licznik++;
             }
         }
-        if (licznik == n-1) cout << "w" << j+1  << " ";
- //       else cout << "nie ma takiego wierzcholka";
+        if (licznik == n-1) cout << "w" << j+1  << " "; // n-1 poniewaz dla samego siebie nie moze byc saiadem
+ //       jezeli taki wierzcholek wystepuje, jego indeks zostanie wypisany na ekranie
  licznik =0;
     }
 
 }
 
-void stwychodzace (char **A, int n, int m)
+void stwychodzace (char **A, int n)
 {
      cout << "\n\n3) stopnie wychodzace z wierzcholkow" << endl << endl;
 
     int i, j, licznik = 0;
-
+// petla zlicza ile razy dany wierzcholek jest wiercholkiem poczatkowym
     for(i=0;i<n;i++)
     {
          for(j=0;j<n;j++)
@@ -83,12 +82,12 @@ void stwychodzace (char **A, int n, int m)
     }
 }
 
-void stwchodzace (char **A, int n, int m)
+void stwchodzace (char **A, int n)
 {
     cout << "\n\n4) stopnie wchodzace wierzcholkow" << endl << endl;
 
     int i, j, licznik = 0;
-
+//petla zlicza ile razy dany wierzcholek jest wierzcholkiem koncowym
     for(j=0;j<n;j++)
     {
          for(i=0;i<n;i++)
@@ -104,14 +103,14 @@ void stwchodzace (char **A, int n, int m)
     }
 }
 
-void wizolowane (char **A, int n, int m)
+void wizolowane (char **A, int n)
 {
-    //wierzcho³ek stopnia 0, to znaczy wierzcho³ek niebêd¹cy koñcem ¿adnej krawêdzi grafu
+    //wierzcholek stopnia 0, to znaczy wierzcholek niebedacy koncem zadnej krawedzi grafu
 
     cout << "\n\n5) Wierzcholki izolowane :" << endl;
     int i, j, k, licznik = 0, tab[n];
-
-
+// ta funkcja sprawdza czy dla wierzcholka o danym indeksie odpowiadajacy mu rzad oraz kolumna
+// macierzy zawieraja tylko 0
 
     for(i=0;i<n;i++)
     {
@@ -125,7 +124,7 @@ void wizolowane (char **A, int n, int m)
         }
         if (licznik == 0) tab[i] = 1; else tab[i] = 0;
             licznik = 0;
-// cout << tab[i] << " ";
+// tworze pomocnicza tabele aby zapisac kandydato na wierzcholek izolowany
 
     }
 
@@ -139,7 +138,7 @@ for(j=0;j<n;j++)
             }
         }
 
-        if (licznik == 0 && tab [j] == 1)
+        if (licznik == 0 && tab [j] == 1) // sprawdzam czy wiersz i kolumna w macierzy to zera
         {
                 cout << "wierzcholek w" << j+1 << " jest wierzcholkiem izolowanym " << endl;
         }
@@ -152,6 +151,10 @@ void petle (char **A, int n)
 {
     cout << "\n\n6) Wszystkie petle:" << endl;
     int i;
+
+    //sprawcza czy na przekatnej macierzy jest wartosc 1
+    //to oznacza ze znalazlem petle bo w1 i w2 maja ta sama wartosc
+
     for(i=0; i<n; i++)
     {
         if (A[i][i] == 1) cout << "petla wierzcholka w" << i+1 << endl;
@@ -181,7 +184,9 @@ int main( )
 
   cout << "podaj liczbe wierzcholkow, a nastepnie liczbe krawedzi grafu " << endl;
   cin >> n;
-  while (n<1)                                   // wczytuje liczbe wierzcholkow i krawedzi
+
+  //zabezpieczam zeby nie wpisywac ujemnych wartosci
+  while (n<1)      // wczytuje liczbe wierzcholkow i krawedzi
   {
       cout << "\n podaj dodatnia liczbe wierzcholkow   --> ";
       cin >> n;
@@ -198,7 +203,7 @@ int main( )
 
   A = new char * [ n ];    // tworze tablice wskaznikow
 
-  for( i = 0; i < n; i++ )    // tworze wiersze
+  for( i = 0; i < n; i++ )    // tworze wiersze macierzy
     A [ i ] = new char [ n ];
 
   // macierz wypelniam zerami
@@ -226,18 +231,22 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl << 
 
 
         cin >> w2;
-        while (w2 < 0 || w2 >n-1)   // zabaezpieczenie przed wpisaniem indeksu ujemnego lub wiekszego od liczby wierzcholkow
+        while (w2 < 0 || w2 >n-1)   // zabezpieczenie przed wpisaniem indeksu ujemnego lub wiekszego od liczby wierzcholkow
         {
             cout << "niepoprawna wartosc, wprowadz wprowadz wartosc z zakresu <0," << n-1 << ">    --> ";
             cin >> w2;
         }
-while(A[w1][w2] == 1)
+
+
+   // zabezpieczam przed dublowaniem krawedzi oraz wartosciami ujemnymi i wiekszymi od liczby wierzcholkow
+    while(A[w1][w2] == 1)
     {
         cout << "taka krawedz juz istnieje, wprowadz inne wartosci" << endl;
         cin >> w1;
         while (w1 < 0 || w1 > n-1 )
         {
-            cout << "niepoprawna wartosc, wprowadz jeszcze raz:    --> ";
+            cout << "niepoprawna wartosc, wprowadz jeszcze raz:" << endl;
+            cout << "--> ";
             cin >> w1;
         }
 
@@ -247,16 +256,17 @@ while(A[w1][w2] == 1)
         cin >> w2;
         while (w2 < 0 || w2 >n-1)
         {
-            cout << "niepoprawna wartosc, wprowadz jeszcze raz:    --> ";
+            cout << "niepoprawna wartosc, wprowadz jeszcze raz:" << endl;
+            cout  << "--> ";
             cin >> w2;
         }
     }
-    A [ w1 ][ w2 ] = 1; // Krawedz w1->w2 obecna
+    A [ w1 ][ w2 ] = 1; // tworze krawedz w1 --> w2
   }
 
   cout << endl;
 
-  // Wypisujemy zawartosc macierzy sasiedztwa
+  // ewentualnie wypisuje zawartosc macierzy sasiedztwa, ale to znacznie wydluza dzialanie programu
 
  /* cout << "   ";
   for( i = 0; i < n; i++ ) cout << setw ( 3 ) << i;
@@ -271,20 +281,24 @@ while(A[w1][w2] == 1)
 
   cout << endl;
 
+  // kolejno wywoluje funkcje
+
   sasiedzi(A, n);
 
-  sasiedzikazdego (A, n, m);
+  sasiedzikazdego (A, n);
 
-  stwychodzace(A, n, m);
+  stwychodzace(A, n);
 
-  stwchodzace(A, n, m);
+  stwchodzace(A, n);
 
-  wizolowane(A, n, m);
+  wizolowane(A, n);
 
   petle(A,n);
 
   krdwukierunkowe(A,n);
 
+
+  cout << endl << endl;
 // Stop measuring time and calculate the elapsed time
     double end = get_cpu_time();
     double elapsed = (end - begin);
