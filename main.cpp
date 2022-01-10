@@ -141,6 +141,18 @@ void petle (char **A, int n)
         if (A[i][i] == 1) cout << "petla wierzcholka w" << i+1 << endl;
     }
 }
+
+void krdwukierunkowe (char **A, int n)
+{
+    cout << "\n\n7) Krawedzie dwukierunkowe: " << endl;
+    int i, j;
+
+    for (i=0; i<n; i++)
+        for (j=0; j<n; j++)
+            if(A[i][j] == 1 && A[j][i] == 1) cout << "krawedz dwukierunkowa miedzy wierzcholkami w" << i << " oraz w" << j << endl;
+
+
+}
 int main( )
 {
   int n, m, i, j, w1, w2;
@@ -197,6 +209,8 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
   wizolowane(A, n, m);
 
   petle(A,n);
+
+  krdwukierunkowe(A,n);
 
 
   return 0;
