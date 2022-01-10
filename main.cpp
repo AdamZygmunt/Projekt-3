@@ -1,7 +1,23 @@
 #include <iostream>
 #include <iomanip>
+#include <processthreadsapi.h>
+#include <stdio.h>
 
 using namespace std;
+
+double get_cpu_time(){
+    FILETIME a,b,c,d;
+    if (GetProcessTimes(GetCurrentProcess(),&a,&b,&c,&d) != 0){
+        //  Returns total user time.
+        //  Can be tweaked to include kernel times as well.
+        return
+            (double)(d.dwLowDateTime |
+            ((unsigned long long)d.dwHighDateTime << 32)) * 0.0000001;
+    }else{
+        //  Handle error
+        return 0;
+    }
+}
 
 void sasiedzi(char **A, int n)
 {
@@ -149,35 +165,92 @@ void krdwukierunkowe (char **A, int n)
 
     for (i=0; i<n; i++)
         for (j=0; j<n; j++)
-            if(A[i][j] == 1 && A[j][i] == 1) cout << "krawedz dwukierunkowa miedzy wierzcholkami w" << i << " oraz w" << j << endl;
+            if(A[i][j] == 1 && A[j][i] == 1 && i!=j) cout << "krawedz dwukierunkowa miedzy wierzcholkami w" << i << " oraz w" << j << endl;
 
 
 }
 int main( )
 {
+
   int n, m, i, j, w1, w2;
   char ** A;
 
+    // Start measuring time
+    double begin = get_cpu_time();
+
 
   cout << "podaj liczbe wierzcholkow, a nastepnie liczbe krawedzi grafu " << endl;
-  cin >> n >> m;         // Czytamy liczbe wierzcholkow i krawedzi
+  cin >> n;
+  while (n<1)                                   // wczytuje liczbe wierzcholkow i krawedzi
+  {
+      cout << "\n podaj dodatnia liczbe wierzcholkow   --> ";
+      cin >> n;
+  }
 
-  A = new char * [ n ];  // Tworzymy tablice wskaznikow
+  cin >> m;
+  while (m<0)
+  {
+      cout << "\n podaj dodatnia liczbe wierzcholkow   --> ";
+      cin >> m;
+  }
 
-  for( i = 0; i < n; i++ )
-    A [ i ] = new char [ n ]; // Tworzymy wiersze
 
-  // Macierz wypelniamy zerami
+
+  A = new char * [ n ];    // tworze tablice wskaznikow
+
+  for( i = 0; i < n; i++ )    // tworze wiersze
+    A [ i ] = new char [ n ];
+
+  // macierz wypelniam zerami
 
   for( i = 0; i < n; i++ )
     for( j = 0; j < n; j++ ) A [ i ][ j ] = 0;
 
   // Odczytujemy kolejne definicje krawedzi
-cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
+cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl << endl;
   for( i = 0; i < m; i++ )
   {
     cout << "podaj poczatkowy i koncowy wierzcholek krawedzi " << i+1 << endl;
-    cin >> w1 >> w2;    // Wierzcholek startowy i koncowy krawedzi
+
+// wierzcholek startowy i koncowy krawedzi
+
+
+        cin >> w1;
+        while (w1 < 0 || w1 > n-1 )  // zabaezpieczenie przed wpisaniem indeksu ujemnego lub wiekszego od liczby wierzcholkow
+        {
+            cout << "niepoprawna wartosc, wprowadz wartosc z zakresu <0," << n-1 << ">    --> ";
+            cin >> w1;
+        }
+
+
+
+
+        cin >> w2;
+        while (w2 < 0 || w2 >n-1)   // zabaezpieczenie przed wpisaniem indeksu ujemnego lub wiekszego od liczby wierzcholkow
+        {
+            cout << "niepoprawna wartosc, wprowadz wprowadz wartosc z zakresu <0," << n-1 << ">    --> ";
+            cin >> w2;
+        }
+while(A[w1][w2] == 1)
+    {
+        cout << "taka krawedz juz istnieje, wprowadz inne wartosci" << endl;
+        cin >> w1;
+        while (w1 < 0 || w1 > n-1 )
+        {
+            cout << "niepoprawna wartosc, wprowadz jeszcze raz:    --> ";
+            cin >> w1;
+        }
+
+
+
+
+        cin >> w2;
+        while (w2 < 0 || w2 >n-1)
+        {
+            cout << "niepoprawna wartosc, wprowadz jeszcze raz:    --> ";
+            cin >> w2;
+        }
+    }
     A [ w1 ][ w2 ] = 1; // Krawedz w1->w2 obecna
   }
 
@@ -185,7 +258,7 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
 
   // Wypisujemy zawartosc macierzy sasiedztwa
 
-  cout << "   ";
+ /* cout << "   ";
   for( i = 0; i < n; i++ ) cout << setw ( 3 ) << i;
   cout << endl << endl;
   for( i = 0; i < n; i++ )
@@ -194,7 +267,7 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
     for( j = 0; j < n; j++ ) cout << setw ( 3 ) << ( int ) A [ i ][ j ];
     cout << endl;
   }
-
+*/
 
   cout << endl;
 
@@ -212,6 +285,11 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl;
 
   krdwukierunkowe(A,n);
 
+// Stop measuring time and calculate the elapsed time
+    double end = get_cpu_time();
+    double elapsed = (end - begin);
+
+    printf("Time measured: %.3f seconds.\n", elapsed);
 
   return 0;
 }
