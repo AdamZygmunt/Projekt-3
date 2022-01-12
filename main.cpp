@@ -124,7 +124,7 @@ void wizolowane (char **A, int n)
         }
         if (licznik == 0) tab[i] = 1; else tab[i] = 0;
             licznik = 0;
-// tworze pomocnicza tabele aby zapisac kandydato na wierzcholek izolowany
+// tworze pomocnicza tabele aby zapisac kandydatow na wierzcholek izolowany
 
     }
 
@@ -168,7 +168,7 @@ void krdwukierunkowe (char **A, int n)
 
     for (i=0; i<n; i++)
         for (j=0; j<n; j++)
-            if(A[i][j] == 1 && A[j][i] == 1 && i!=j) cout << "krawedz dwukierunkowa miedzy wierzcholkami w" << i << " oraz w" << j << endl;
+            if(A[i][j] == 1 && A[j][i] == 1 && i!=j) cout << "krawedz dwukierunkowa miedzy wierzcholkami w" << i+1 << " oraz w" << j+1 << endl;
 
 
 }
@@ -178,7 +178,7 @@ int main( )
   int n, m, i, j, w1, w2;
   char ** A;
 
-    // Start measuring time
+    // Start odmierzania czasu
     double begin = get_cpu_time();
 
 
@@ -188,7 +188,7 @@ int main( )
   //zabezpieczam zeby nie wpisywac ujemnych wartosci
   while (n<1)      // wczytuje liczbe wierzcholkow i krawedzi
   {
-      cout << "\n podaj dodatnia liczbe wierzcholkow   --> ";
+      cout << "\n\n\npodaj dodatnia liczbe wierzcholkow   --> ";
       cin >> n;
   }
 
@@ -283,27 +283,27 @@ cout << " indeksy wierzcholkow przy wprowadzaniu zaczynaja sie od 0" << endl << 
 
   // kolejno wywoluje funkcje
 
-  sasiedzi(A, n);
+      sasiedzi(A, n);
 
-  sasiedzikazdego (A, n);
+      sasiedzikazdego (A, n);
 
-  stwychodzace(A, n);
+      stwychodzace(A, n);
 
-  stwchodzace(A, n);
+      stwchodzace(A, n);
 
-  wizolowane(A, n);
+      wizolowane(A, n);
 
-  petle(A,n);
+      petle(A,n);
 
-  krdwukierunkowe(A,n);
+      krdwukierunkowe(A,n);
 
 
   cout << endl << endl;
-// Stop measuring time and calculate the elapsed time
+// Stop  mierzenia i podliczenie czasu
     double end = get_cpu_time();
     double elapsed = (end - begin);
 
-    printf("Time measured: %.3f seconds.\n", elapsed);
+    printf("Zmierzony czas: %.3f seconds.\n", elapsed);
 
-  return 0;
+  return 0; //0.859 0.891
 }
